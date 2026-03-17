@@ -16,7 +16,6 @@ const Search = () => {
   const [error, setError] = useState(null);
 
   const query = searchParams.get('q') || '';
-  console.log(query)
   const currentPage = parseInt(searchParams.get('page') || '1');
 
   useEffect(() => {
@@ -36,7 +35,6 @@ const Search = () => {
           setTotalResults(parseInt(data.totalResults) || 0);
         }
       } catch (err) {
-        console.log(err)
         setError(err.response?.data?.message || 'Something went wrong');
       } finally {
         setLoading(false);

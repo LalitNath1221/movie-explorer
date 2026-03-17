@@ -25,6 +25,7 @@ const Login = ({ isModal = false, onSwitch }) => {
       dispatch(setFavorites(favRes.data));
       navigate("/search");
     } catch (error) {
+      console.log(error)
       setError(error.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
