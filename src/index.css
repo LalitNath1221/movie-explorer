@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+@theme{
+  --color-nf-red: #E50914;
+  --color-nf-bg: #141414;
+  --color-nf-card: #1f1f1f;
+  --color-nf-dark: #000000;
+  --color-nf-text: #ffffff;
+  --color-nf-muted: #888888;
+  --color-nf-input: #2a2a2a;
+  --color-nf-border: #444444;
+  --color-nf-red-dark: #b20710;
+}
