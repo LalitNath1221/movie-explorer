@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {store} from '../Store/store.js'
+import {store} from '../store/store.js'
 import { clearAuth } from '../store/authSlice.js';
 const instance = axios.create({
   baseURL: `${import.meta.env.VITE_API_URL}/api`,
