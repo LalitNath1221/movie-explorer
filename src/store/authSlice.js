@@ -6,11 +6,17 @@ const authSlice = createSlice({
     user: null,
     favorites: [],
     showLoginModal: false,
-
   },
   reducers: {
     setUser: (state, action) => {
-      state.user = action.payload;
+      // save token to localStorage
+      if (action.payload.token) {
+        //console.log(action.payload.token)
+        localStorage.setItem('token', action.payload.token);
+      }
+      // store user without token in state
+      const { token, ...user } = action.payload;
+      state.user = user;
     },
     setFavorites: (state, action) => {
       state.favorites = action.payload;
@@ -24,10 +30,10 @@ const authSlice = createSlice({
     clearAuth: (state) => {
       state.user = null;
       state.favorites = [];
+      localStorage.removeItem('token'); // clear token on logout
     },
     openLoginModal: (state) => { state.showLoginModal = true; },
     closeLoginModal: (state) => { state.showLoginModal = false; },
-
   }
 });
 
