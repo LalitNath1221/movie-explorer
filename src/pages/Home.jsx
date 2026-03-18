@@ -9,14 +9,6 @@ const Home = () => {
       {/* Subtle red glow */}
       <div
         className="absolute pointer-events-none"
-        style={{
-          width: '600px',
-          height: '300px',
-          background: 'radial-gradient(ellipse at center, rgba(229,9,20,0.15) 0%, transparent 70%)',
-          top: '30%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-        }}
       />
 
       {/* Logo */}
