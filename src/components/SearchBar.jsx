@@ -1,3 +1,4 @@
+import { Search } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 
@@ -34,7 +35,7 @@ const SearchBar = ({ initialQuery = "" }) => {
         const data = await res.json();
         if (data.Response === "True") {
           setSuggestions(data.Search.slice(0, 5));
-          if(isTyping.current){
+          if (isTyping.current) {
             setShowSuggestions(true);
           }
         } else {
@@ -72,7 +73,7 @@ const SearchBar = ({ initialQuery = "" }) => {
 
   return (
     <div ref={wrapperRef} className="relative w-full">
-      <form onSubmit={handleSearch} className="flex gap-2">
+      <form onSubmit={handleSearch} className="relative flex gap-2">
         <div className="relative flex-1">
           <input
             type="text"
@@ -92,42 +93,42 @@ const SearchBar = ({ initialQuery = "" }) => {
             }}
             className="w-full bg-nf-input text-nf-text px-4 py-3 rounded outline-none border border-nf-border focus:border-nf-red transition-colors placeholder:text-nf-muted"
           />
-
-          {showSuggestions && suggestions.length > 0 && (
-            <div className="absolute top-full left-0 right-0 z-50 mt-1 rounded overflow-hidden border border-nf-border bg-nf-card">
-              {suggestions.map((movie) => (
-                <div
-                  key={"s" + movie.imdbID}
-                  onClick={() => handleSuggestionClick(movie.Title)}
-                  className="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-nf-input transition-colors border-b border-nf-border last:border-b-0"
-                >
-                  <img
-                    src={
-                      movie.Poster !== "N/A"
-                        ? movie.Poster
-                        : "https://via.placeholder.com/32x48?text=?"
-                    }
-                    alt={movie.Title}
-                    className="w-8 h-12 object-cover rounded"
-                  />
-                  <div>
-                    <p className="text-nf-text text-sm font-medium">
-                      {movie.Title}
-                    </p>
-                    <p className="text-nf-muted text-xs">{movie.Year}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
         </div>
 
         <button
           type="submit"
           className="bg-nf-red text-white font-semibold px-6 py-3 rounded hover:opacity-90 transition-opacity whitespace-nowrap"
         >
-          Search
+          <span className="hidden sm:block">Search</span>
+          <Search size={20} className="block sm:hidden" />
         </button>
+        {showSuggestions && suggestions.length > 0 && (
+          <div className="absolute top-full left-0 right-0 z-50 mt-1 rounded overflow-hidden border border-nf-border bg-nf-card">
+            {suggestions.map((movie) => (
+              <div
+                key={"s" + movie.imdbID}
+                onClick={() => handleSuggestionClick(movie.Title)}
+                className="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-nf-input transition-colors border-b border-nf-border last:border-b-0"
+              >
+                <img
+                  src={
+                    movie.Poster !== "N/A"
+                      ? movie.Poster
+                      : "https://via.placeholder.com/32x48?text=?"
+                  }
+                  alt={movie.Title}
+                  className="w-8 h-12 object-cover rounded"
+                />
+                <div>
+                  <p className="text-nf-text text-sm font-medium">
+                    {movie.Title}
+                  </p>
+                  <p className="text-nf-muted text-xs">{movie.Year}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </form>
     </div>
   );

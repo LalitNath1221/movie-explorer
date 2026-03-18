@@ -54,7 +54,7 @@ const Search = () => {
       <div className="max-w-6xl mx-auto">
 
         {/* Search bar at top of results page */}
-        <div className="mb-8">
+        <div className="mb-8 max-w-3xl mx-auto">
           <SearchBar initialQuery={query} />
         </div>
 
