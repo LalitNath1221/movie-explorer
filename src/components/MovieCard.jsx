@@ -4,13 +4,13 @@ import { addFavorite, removeFavorite } from "../store/authSlice";
 import axiosInstance from "../api/api";
 import useFavorite from "../hooks/useFavorite";
 import { useState } from "react";
+import { Heart, Loader2 } from 'lucide-react';
 
 const MovieCard = ({ movie }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-const { isFavorited, toggleFavorite } = useFavorite();
-
+  const { isFavorited, toggleFavorite } = useFavorite();
 
   const handleFavorite = async (e) => {
     e.stopPropagation();
@@ -45,9 +45,20 @@ const { isFavorited, toggleFavorite } = useFavorite();
           <button
             onClick={handleFavorite}
             disabled={loading}
-            className="text-xl disabled:opacity-50 transition-opacity cursor-pointer"
+            className="disabled:opacity-50 transition-opacity cursor-pointer"
           >
-            {loading ? "⏳" : isFavorited(movie.imdbID) ? "❤️" : "🤍"}
+            {loading ? (
+              <Loader2 size={20} className="animate-spin text-nf-red" />
+            ) : (
+              <Heart
+                size={20}
+                className={
+                  isFavorited(movie.imdbID)
+                    ? "fill-nf-red text-nf-red"
+                    : "text-nf-muted hover:text-nf-red transition-colors"
+                }
+              />
+            )}
           </button>
         </div>
       </div>

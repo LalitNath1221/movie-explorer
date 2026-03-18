@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { addFavorite, removeFavorite } from "../store/authSlice";
 import axiosInstance from "../api/api";
 import useFavorite from "../hooks/useFavorite";
+import { Heart, Loader2 } from "lucide-react";
 
 const MovieDetail = () => {
   const { imdbId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isFavorited, toggleFavorite } = useFavorite();
-    const [loadingFav, setLoadingFav] = useState(false);
-
+  const [loadingFav, setLoadingFav] = useState(false);
 
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -91,13 +91,23 @@ const MovieDetail = () => {
             <button
               onClick={handleFavorite}
               disabled={loadingFav}
-              className={`cursor-pointer mt-6 px-6 py-2 rounded font-bold ${isFavorited ? "bg-red-600 hover:bg-red-700" : "bg-yellow-400 hover:bg-yellow-500 text-black"}`}
+              className={`cursor-pointer mt-6 px-6 py-2 rounded font-bold flex items-center gap-2 disabled:opacity-50 transition-opacity
+    ${isFavorited(movie.imdbID) ? "bg-nf-red text-white" : "border border-nf-border text-nf-text hover:bg-nf-card"}`}
             >
-              {loadingFav
-                ? "Updating..."
-                : isFavorited(movie.imdbID)
-                  ? "❤️ Remove from Favorites"
-                  : "🤍 Add to Favorites"}{" "}
+              {loadingFav ? (
+                <>
+                  <Loader2 size={18} className="animate-spin" /> Updating...
+                </>
+              ) : isFavorited(movie.imdbID) ? (
+                <>
+                  <Heart size={18} className="fill-white text-white" /> Remove
+                  from Favorites
+                </>
+              ) : (
+                <>
+                  <Heart size={18} className="text-nf-red" /> Add to Favorites
+                </>
+              )}
             </button>
           </div>
         </div>
